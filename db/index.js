@@ -9,7 +9,3 @@ if (!connectionString) {
 }
 
 export const pool = new pg.Pool({ connectionString });
-
-await pool.connect();
-
-await pool.end();

@@ -1,7 +1,7 @@
 import { pool } from "../db/index.js";
 
 export async function getAuthors() {
-  const query = "SELECT * FROM Authors";
+  const query = "SELECT * FROM authors";
   const result = await pool.query(query);
   console.log(result.rows);
   return result.rows;
