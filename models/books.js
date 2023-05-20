@@ -18,7 +18,7 @@ export async function searchBooksByAuthor(searchTerm) {
   const query = `
     SELECT books.*
     FROM books
-    INNER JOIN authors ON books.author_id = authors.id
+    JOIN authors ON books.author_id = authors.id
     WHERE authors.last_name = $1
   `;
 
