@@ -14,12 +14,17 @@ export async function searchBooksByTitle(searchTerm) {
 }
 
 export async function searchBooksByAuthor(searchTerm) {
+  // Query the database and return any books matching the search term
   const query = `
     SELECT books.*
     FROM books
     INNER JOIN authors ON books.author_id = authors.id
-    WHERE authors.first_name = $1 OR authors.last_name = $1
+    WHERE authors.last_name = $1
   `;
+
+  console.log("Search term:", searchTerm);
+  console.log("Query:", query);
+
   const result = await pool.query(query, [searchTerm]);
   return result.rows;
 }
