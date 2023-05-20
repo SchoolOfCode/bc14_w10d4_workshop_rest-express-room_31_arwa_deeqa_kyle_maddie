@@ -2,7 +2,7 @@ import { pool } from "../db/index.js";
 
 export async function getBooks() {
   const query = "SELECT * FROM books";
-  // Query the database and return all books
+  // //Query the database and return all books
   const result = await pool.query(query);
   return result.rows;
 }
