@@ -1,15 +1,17 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 
 import { bookRoutes } from "./routes/books.js";
 import { authorRoutes } from "./routes/authors.js";
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.MY_PORT;
 
 app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/books", bookRoutes);
 app.use("/api/authors", authorRoutes);

@@ -8,7 +8,8 @@ export async function getAuthors() {
 }
 
 export async function searchAuthorsByName(searchTerm) {
-  const query = "SELECT * FROM authors WHERE first_name = $1 OR last_name = $1";
+  const query =
+    "SELECT * FROM authors WHERE first_name ILIKE $1 OR last_name ILIKE $1";
   const result = await pool.query(query, [searchTerm]);
   console.log(result.rows);
   return result.rows;

@@ -19,7 +19,7 @@ export async function searchBooksByAuthor(searchTerm) {
     SELECT books.*
     FROM books
     JOIN authors ON books.author_id = authors.id
-    WHERE authors.last_name = $1
+    WHERE authors.last_name LIKE $1
   `;
 
   console.log("Search term:", searchTerm);
@@ -38,25 +38,31 @@ export async function getBookById(id) {
 
 export async function createBook(book) {
   // Query the database to create a book and return the newly created book
-  const query = "INSERT INTO books (title, author_id) VALUES ($1, $2)";
-  const result = await pool.query(query, [book.title, book.author_id]);
-  return result.rows[0];
+  const query =
+    "INSERT INTO books (author_id, title, published_date) VALUES ($1, $2, $3)";
+  const result = await pool.query(query, [
+    book.author_id,
+    book.title,
+    book.published_date,
+  ]);
+  return result.rows;
 }
 
 export async function updateBookById(id, updates) {
-  // Query the database to update a book and return the newly updated book
-  const query = "UPDATE books SET title = $1, author_id = $2 WHERE id = $3";
+  const query =
+    "UPDATE books SET title = $1, author_id = $2, image_url = $3 WHERE id = $4";
   const result = await pool.query(query, [
     updates.title,
     updates.author_id,
+    updates.image_url,
     id,
   ]);
-  return result.rows[0];
+  return result.rows;
 }
 
 export async function deleteBookById(id) {
   // Query the database to delete a book and return the deleted book
   const query = "DELETE FROM books WHERE id = $1";
   const result = await pool.query(query, [id]);
-  return result.rows[0];
+  return result.rows;
 }
